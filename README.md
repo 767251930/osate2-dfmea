@@ -4,9 +4,11 @@ An eclipse plug-in for `OSATE2`,  can be used perform `DFMEA` analysis on AADL m
 
 ## Plug-in installation
 
-1. Obtain the latest plugin compression package `osate2-dfmea.v0.1.7.zip` from [latest release](https://github.com/767251930/osate2-dfmea/releases). page and unzip it
+1. First, you need to download [OSATE2](https://osate.org/download-and-install.html)
 
-2. Open Osate2 (***version >= 2.11.0***) tool, From the top menu bar, click on:
+2. Obtain the latest plugin compression package `osate2-dfmea.v0.1.7.zip` from [latest release](https://github.com/767251930/osate2-dfmea/releases). page and unzip it
+
+3. Open Osate2 (***version >= 2.11.0***) tool, From the top menu bar, click on:
 
    `1:Help`-> `2:Install New Software` -> `3:Uncheck the "Contact all update sites"`-> 
 
@@ -14,13 +16,13 @@ An eclipse plug-in for `OSATE2`,  can be used perform `DFMEA` analysis on AADL m
 
    `Next`->`I accept the terms of the license agreement`-> `Finish `
 
-3. If the installation process encountered a pop-up window，choose `Trust all unsigned content`，Restart the OSATE2 tool to complete the installation。
+4. If the installation process encountered a pop-up window，choose `Trust all unsigned content`，Restart the OSATE2 tool to complete the installation
 
 ![install](./imgs/install.png) 
 
 ## Case study : Automated Driving System
 
-This example comes from [*AADL In Practice*](http://julien.gunnm.org/aadl-book)。
+This example comes from [*AADL In Practice*](http://julien.gunnm.org/aadl-book)
 
 ### Import Example
 
@@ -34,19 +36,19 @@ This example comes from [*AADL In Practice*](http://julien.gunnm.org/aadl-book)�
 
 ### Use of DFMEA Plug-in
 
-1. Instantiate the top level system `integration.functional` from `integration.aadl` file outline.
+1. Instantiate the top level system `integration.functional` from `integration.aadl` file outline
 
    `1:Double click integration.aadl`-> `2:Right click System integration.functional from Outline` -> `3:Instantiate`
 
-   The instances file `integration_integration_functional_Instance.aaxl2` will be generated in `instances` folder of project.
+   The instances file `integration_integration_functional_Instance.aaxl2` will be generated in `instances` folder of project
 
 ![instantiate](./imgs/instantiate.png)
 
 
 
-2. Select the target instantiation file(.aaxl2)。
-3. From the top menu bar, click on: `Analyses` -> `DFMEA` -> `Run Failure Mode Effect and Analysis`。
-4. Select the focus component to analyze（The plugin will first automatically select the component recorded with attribute `AIAG_VDA::Head` in the top-level component as the focus component）。
+2. Select the target instantiation file(.aaxl2)
+3. From the top menu bar, click on: `Analyses` -> `DFMEA` -> `Run Failure Mode Effect and Analysis`
+4. Select the focus component to analyze（The plugin will first automatically select the component recorded with attribute `AIAG_VDA::Head` in the top-level component as the focus component）
 5. Check the analysis related options
 
 - `Only show failure modes...` : After checking, only the `error state` and `out error out propagation` in the failure propagation, as well as other failure element with FMEA attributes, will be output in the failure analysis.
@@ -65,7 +67,7 @@ This example comes from [*AADL In Practice*](http://julien.gunnm.org/aadl-book)�
 
 This is a complete fault net of the Automated Driving System system through the analysis of the DFMEA plug-in.
 
-![](./user document.assets/result of fault net-1682509609474-4.png)
+![result of fault net](./imgs/result of fault net.png)
 
 
 
@@ -73,7 +75,7 @@ This is the DFMEA Seven Step excel report of the Automated Driving System system
 
 The light yellow cells in the failure analysis column represent the `failure modes` that are considered the `final failure effect` and the `initial failure cause`
 
-![instantiate](./user document.assets/result of excel.png)
+![result of excel](.//imgs/result of excel.png)
 
 
 
@@ -119,7 +121,7 @@ The following AADL components constitute the sensing function:
 
 The following components make up the processing part of the system and depend on the software components:
 
-- `image_acquisition`：Use the original data of the camera to determine whether there are obstacles
+- `image_acquisition`：Use the original data of the camera to determine whether there are obstacles.
 - `obstacle_detection`：Use data from `image_acquisition` and `obstacle_radar` to determine if there are actual obstacles on the road. This component acts like a redundant/voting system for image acquisition.
 - `speed_voter`：Receive speed from both `wheel_sensor` and `laser_sensor`, eliminate potential bad values (due to transmission error, a sensor failure, etc.) , and output a consistent speed value, this value will be used by the speed controller and displayed on the screen.
 - `speed_ctrl`：Use the expected speed from passengers, actual speed, and information from `obstacle_detection`, appropriately activate acceleration or braking.
@@ -128,10 +130,10 @@ The following components make up the processing part of the system and depend on
 
 Finally, the following components represent the execution part of the system:
 
-- `brake`：A device for applying brakes to car wheels
-- `acceleration`：A device that adjusts the engine and increases speed
-- `speaker`：The output of a car audio system, where the sound is produced
-- `screen`：The screen on the dashboard
+- `brake`：A device for applying brakes to car wheels.
+- `acceleration`：A device that adjusts the engine and increases speed.
+- `speaker`：The output of a car audio system, where the sound is produced.
+- `screen`：The screen on the dashboard.
 
 Here is a graphical representation of the AADL model:
 
@@ -143,12 +145,12 @@ Here is a graphical representation of the AADL model:
 
 ## Introduce of DFMEA Plug-in
 
-The Plug-in Follow the [AIAG-VDA DFMEA](https://www.aiag.org/quality/automotive-core-tools/fmea) standard
+The Plug-in Follow the [AIAG-VDA DFMEA](https://www.aiag.org/quality/automotive-core-tools/fmea) standard.
 
 The AIAG-VDA DFMEA adds consideration of system structure, function, and risk analysis to the analysis steps, leading to a more robust FMEA development process.
 The DFMEA analysis process consists of seven steps.
 
-![DFMEA 七步法](imgs/7-step dfmea process.png) 
+![7-step dfmea process](imgs/7-step dfmea process.png) 
 
 #### Property Set
 
@@ -164,8 +166,7 @@ To provide a comprehensive DFMEA analysis, we have defined a property set named 
 - `AIAG_VDA::Optimization`：
   - Assign failure elements to relevant components of the system, add `optimized detection/prevention measures` for the fault, optimized measurement indicators `(O/D)`, and other `additional information` to support the DFMEA optimization analysis step.
 
-
-**AADL models that have completed architectural modeling and error modeling can perform structural analysis of DFMEA and core failure analysis step without recording additional information through the `AIAG_VDA` property set**
+**AADL models that have completed architectural modeling and error modeling can perform structural analysis of DFMEA and core failure analysis step without recording additional information through the `AIAG_VDA` property set**.
 
 ```c
 	property set AIAG_VDA is
