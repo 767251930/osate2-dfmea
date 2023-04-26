@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.osate.dfmea.contrib;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.osate.dfmea.contrib
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Require-Bundle: org.osate.pluginsupport;bundle-version="[7.1.0,8.0.0)"

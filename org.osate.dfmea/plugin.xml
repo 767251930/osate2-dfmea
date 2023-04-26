@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.dfmea.category"
+            name="OSATE Design Failure Mode and Effect Analysis">
+      </category>
+      <command
+            categoryId="org.osate.dfmea.category"
+            id="org.osate.dfmea.command"
+            name="Run Failure Mode and Effect Analysis"
+            description="Run FMEA and get report">
+      </command>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.dfmea.handler.FMEAhandler"
+            commandId="org.osate.dfmea.command">
+         <enabledWhen>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected"/>
+         </enabledWhen>
+      </handler>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.dfmea.command"
+            icon="icons/FMEAicon.png">
+      </image>
+   </extension>  
+   
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.osate.ui.dfmeaMenu?after=core">
+         <command
+               commandId="org.osate.dfmea.command">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.dfmeaToolbar?after=core">
+         <command
+               commandId="org.osate.dfmea.command"
+               tooltip="Run Failure Mode and Effect Analysis">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.dfmeaNavigatorPopup?after=core">
+         <command
+               commandId="org.osate.dfmea.command">
+            <visibleWhen
+                  checkEnabled="true">
+            </visibleWhen>
+         </command>
+       </menuContribution>
+   </extension>
+
+</plugin>

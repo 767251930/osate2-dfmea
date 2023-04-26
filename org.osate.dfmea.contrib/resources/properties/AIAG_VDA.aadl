@@ -1,0 +1,46 @@
+property set AIAG_VDA is
+
+	Head: record (
+		CompanyName: aadlstring; 		-- company name 		
+		EngineeringLocation: aadlstring; 	-- engineering location 	
+		CustomerName: aadlstring; 		-- customer name 			
+		ModelYearProgram: aadlstring; 	-- model years/programs 	
+		Subject: aadlstring; 			-- subject				 	
+		DFMEAStartData: aadlstring; 		-- DFMEA start date 		
+		DFMEARevisionData: aadlstring; 	-- DFMEA revision date 	
+		CrossFuncTeam: aadlstring; 		-- cross-functional team 
+		DFMEAID: aadlstring; 		-- DFMEA ID number 		
+		DesignResponsibility: aadlstring; 	-- design responsibility	
+		ConfidentialityLevel: aadlstring; 	-- confidentiality level 	
+		FocusComponent: aadlstring; 	-- focus component		
+	)applies to (all);
+
+
+	DFMEA: record (
+		FailureDescription: aadlstring;		-- description of the failure mode
+		Function:aadlstring;		-- description of the function violated by the failure mode
+		Severity: aadlinteger 1 .. 10;		-- severity of failure effect  
+		PC: aadlstring;			-- current prevention control of failure cause 
+		Occurrence: aadlinteger 1 .. 10;	-- occurrence of failure cause 
+		DC: aadlstring;			-- current detection control of failure cause/failure mode
+		Detection: aadlinteger 1 .. 10;		-- detection of failure cause/failure mode)
+	)applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
+		{emv2}**error propagation, {emv2}**error event, {emv2}**error flow);
+
+	
+
+	Optimization: list of record (
+		OptPC: aadlstring;			-- DFMEA optimized preventive action 
+		OptDC: aadlstring;			-- DFMEA optimized detection action 
+		ResponsPerson: aadlstring;		-- responsible person's name
+		TargetCompletionData: aadlstring;	-- target completion date
+		Status: aadlstring;			-- status
+		Evidence: aadlstring;		-- action taken with pointer to evidence
+		CompletionData: aadlstring;		-- completion date
+		OptOccurrence: aadlinteger 1 .. 10;	-- optimized occurrence
+		OptDetection: aadlinteger 1 .. 10;	-- optimized detection
+		Notes: aadlstring;			-- notes
+	)applies to ({emv2}**error type, {emv2}**type set, {emv2}**error behavior state,
+		{emv2}**error propagation, {emv2}**error event, {emv2}**error flow);
+		
+end AIAG_VDA;

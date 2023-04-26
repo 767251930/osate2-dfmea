@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.osate.dfmea.feature"
+      label="osate2-dfmea"
+      version="0.1.7.qualifier">
+
+   <description url="http://www.example.com/description">
+      OSATE2 plug-in that provides DFMEA support.
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.osate.aadl2" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2.errormodel.faulttree" version="6.1.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2.errormodel.faulttree.generation" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2.errormodel.propagationgraph" version="6.2.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2.modelsupport" version="6.1.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2.instantiation" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.ui" version="6.3.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.pluginsupport" version="7.1.0" match="greaterOrEqual"/>
+   </requires>
+
+
+
+   <plugin
+         id="org.osate.dfmea.contrib"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"/>
+
+   <plugin
+         id="org.osate.dfmea.lib"
+         download-size="0"
+         install-size="0"
+         version="1.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.dfmea.ui"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"/>
+
+   <plugin
+         id="org.osate.dfmea"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
+
+   
+
+</feature>

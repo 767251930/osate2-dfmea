@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.osate.ui.analysesMenu?after=third_party">
+         <menu
+               id="org.osate.ui.dfmeaMenu"
+               label="DFMEA">
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="org.osate.ui.dfmeaToolbar"
+               label="DFMEA">
+            <visibleWhen
+                  checkEnabled="false">
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
+            </visibleWhen>
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.analysesNavigatorPopup?after=org.osate.ui.safetyNavigatorPopup">
+         <menu
+               id="org.osate.ui.dfmeaNavigatorPopup"
+               label="DFMEA">
+            <separator
+                  name="core">
+            </separator>
+            <separator
+                  name="third_party">
+            </separator>
+         </menu>
+      </menuContribution>
+   </extension>
+
+</plugin>

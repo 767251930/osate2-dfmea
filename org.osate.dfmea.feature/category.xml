@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.osate.dfmea.feature">
+      <category name="org.osate.dfmea.category"/>
+   </feature>
+   <category-def name="org.osate.dfmea.category" label="org.osate.dfmea.category"/>
+</site>
