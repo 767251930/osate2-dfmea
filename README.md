@@ -150,7 +150,7 @@ The Plug-in Follow the [AIAG-VDA DFMEA](https://www.aiag.org/quality/automotive-
 The AIAG-VDA DFMEA adds consideration of system structure, function, and risk analysis to the analysis steps, leading to a more robust FMEA development process.
 The DFMEA analysis process consists of seven steps.
 
-![7-step dfmea process](imgs/7-step dfmea process.png) 
+![7-step dfmea process](imgs/7-step-dfmea-process.png) 
 
 #### Property Set
 
