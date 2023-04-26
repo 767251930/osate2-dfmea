@@ -1,0 +1,71 @@
+
+
+package aadlbook::platform
+
+public
+
+	with SEI;
+	with emv2;
+
+	processor ecu
+		features
+			socket1: requires bus access can;
+			socket2: requires bus access can;
+		properties
+			SEI::MIPSCapacity => 50.0 MIPS;
+		annex EMV2 {**
+	use types 		ErrorLibrary;
+	use behavior  	ErrorLibrary::FailStop;
+
+	error propagations
+		bindings : out propagation {ServiceError};
+	flows
+		fsoft : error source bindings{ServiceError};
+		fhard : error source bindings{ServiceError};
+	end propagations;
+
+	component error behavior
+	events
+		SoftwareError : error event;
+		HardwareError : error event;
+		Reset         : recover event;
+	transitions
+		Operational -[SoftwareError]-> FailStop; 
+		Operational -[HardwareError]-> FailStop;
+		FailStop      -[Reset]->         Operational;
+	propagations
+		normal       : Operational -[]-> bindings {NoError};
+		fs           : FailStop -[]-> bindings{ServiceError};  
+	end component;
+	properties
+  		AIAG_VDA::DFMEA =>[ FailureDescription =>"Ecu failure";
+						  	Function=>"Perform intelligent vehicle control function";] applies to FailStop; 
+  		AIAG_VDA::DFMEA =>[ FailureDescription =>"Hardware failure from the platform (OS exception, etc.)";
+						  	Function=>"Normal execution of platform hardware";] applies to SoftwareError; 
+  		AIAG_VDA::DFMEA =>[ FailureDescription =>"Software failure from the platform (OS exception, etc.)";
+						 	Function=>"Normal operation of platform software";] applies to HardwareError; 
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 1.35e-5 ; Distribution => Poisson;] applies to HardwareError;
+**};
+	end ecu;
+
+
+	bus can
+		properties
+			Latency => 1Ms .. 1Ms;
+			SEI::BandWidthCapacity => 500000.0 bitsps;
+			Transmission_Time => [Fixed => 10ms .. 30ms;
+				PerByte => 1us .. 10us;];
+	end can;
+
+	bus rs232
+		properties
+			Latency => 1Ms .. 1Ms;
+			SEI::BandWidthCapacity => 5.0 KBytesps;
+			Transmission_Time => [Fixed => 200ms .. 500ms;
+				PerByte => 2ms .. 5ms;];
+	end rs232;
+
+	bus bluetooth
+	end bluetooth;
+
+end aadlbook::platform;

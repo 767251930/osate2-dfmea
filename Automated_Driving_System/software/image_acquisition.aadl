@@ -1,0 +1,82 @@
+
+
+package aadlbook::software::image_acquisition
+
+public
+
+with aadlbook::icd; 
+with sei;
+
+-------------------------
+--  Image Acquisition  --
+-------------------------
+
+process image_acquisition
+features
+	picture           : in data port aadlbook::icd::picture;
+	obstacle_detected : out data port aadlbook::icd::obstacle_position.i;
+flows
+	f0 : flow path picture -> obstacle_detected;
+annex EMV2 {**
+	use types 		ErrorLibrary;
+	use behavior  	ErrorLibrary::FailStop;
+
+	error propagations
+		picture : in propagation {ItemOmission};
+		obstacle_detected : out propagation {ItemOmission,OutOfRange};
+		processor : in propagation {ServiceError};
+	flows
+		ef0 : error path picture{ItemOmission} -> obstacle_detected{ItemOmission};
+		ef1 : error path picture{ItemOmission} -> obstacle_detected{OutOfRange};
+		ef2 : error path processor{ServiceError} -> obstacle_detected{ItemOmission};
+--		ef3 : error source obstacle_detected{ItemOmission} when FailStop;
+	end propagations;
+
+	component error behavior
+	transitions
+		t0 : Operational -[processor{ServiceError}]-> FailStop;
+		t1 : FailStop -[processor{NoError}]-> Operational;
+	propagations
+	   	p1 : FailStop -[]-> obstacle_detected{ItemOmission};
+	end component;
+	properties
+		AIAG_VDA::DFMEA =>[ FailureDescription =>"Unable to determine if there is an obstacle";
+				  			Function=>"Uses raw data from the camera to determine if there is an obstacle";] applies to  FailStop;
+		AIAG_VDA::DFMEA =>[ FailureDescription =>"Loss of obstacle detection data";
+				  			Function=>"Output obstacle detection data";] applies to  obstacle_detected.ItemOmission; 
+		AIAG_VDA::DFMEA =>[ FailureDescription =>"Invalid obstacle detection data";
+				  			Function=>"Output obstacle detection data";] applies to  obstacle_detected.OutOfRange; 	
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.5e-5 ; Distribution => Poisson;] applies to Failure;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.5e-5 ; Distribution => Poisson;] applies to processor.ServiceError;
+**};
+end image_acquisition;
+
+process implementation image_acquisition.i
+subcomponents
+	thr_acq : thread image_acquisition_thr.i;
+connections
+	c0 : port picture -> thr_acq.picture;
+	c1 : port thr_acq.obstacle_detected -> obstacle_detected;
+flows
+	f0 : flow path picture -> c0 -> thr_acq.f0 -> c1 -> obstacle_detected;
+end image_acquisition.i;
+
+thread image_acquisition_thr
+features
+	picture           : in data port aadlbook::icd::picture;
+	obstacle_detected : out data port aadlbook::icd::obstacle_position.i;
+flows
+	f0 : flow path picture -> obstacle_detected;
+properties
+	sei::mipsbudget   => 25.0 MIPS;
+	Dispatch_Protocol => Periodic;
+	Period            => 50ms;
+	compute_execution_time => 10 ms .. 40 ms;
+--	reference_processor => classifier (::platform::ecu);
+	sei::instructionsperdispatch => 1.24 kipd .. 1.25 mipd; 
+end image_acquisition_thr;
+
+thread implementation image_acquisition_thr.i
+end image_acquisition_thr.i;
+
+end aadlbook::software::image_acquisition;
