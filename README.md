@@ -61,13 +61,13 @@ This example comes from [*AADL In Practice*](http://julien.gunnm.org/aadl-book)
 
 
 
-![apply dfmea](./imgs/apply dfmea.png)
+![apply dfmea](./imgs/apply-dfmea.png)
 
 ### Result of DFMEA
 
 This is a complete fault net of the Automated Driving System system through the analysis of the DFMEA plug-in.
 
-![result of fault net](./imgs/result of fault net.png)
+![result of fault net](./imgs/result-of-fault-net.png)
 
 
 
@@ -75,7 +75,7 @@ This is the DFMEA Seven Step excel report of the Automated Driving System system
 
 The light yellow cells in the failure analysis column represent the `failure modes` that are considered the `final failure effect` and the `initial failure cause`
 
-![result of excel](.//imgs/result of excel.png)
+![result of excel](./imgs/result-of-excel.png)
 
 
 
